@@ -11,18 +11,19 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    @State private var selectedItem: Item?
 
     var body: some View {
         NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
+            // 左サイドバー: アイテム一覧
+            List(selection: $selectedItem) {
+                Section("Items") {
+                    ForEach(items) { item in
                         Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                            .tag(item)
                     }
+                    .onDelete(perform: deleteItems)
                 }
-                .onDelete(perform: deleteItems)
             }
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
             .toolbar {
@@ -31,9 +32,44 @@ struct ContentView: View {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
+                ToolbarItem(placement: .automatic) {
+                    Button(action: deleteSelectedItem) {
+                        Label("Delete Item", systemImage: "trash")
+                    }
+                  .disabled(selectedItem == nil)
+                }
             }
         } detail: {
-            Text("Select an item")
+          // 右側: 詳細表示
+          if let item = selectedItem {
+            VStack(spacing: 20) {
+              Image(systemName: "clock.fill")
+                  .font(.system(size: 60))
+                  .foregroundStyle(.blue)
+
+              Text("Selected Item")
+                  .font(.title)
+
+              Text(item.timestamp, format: Date.FormatStyle(date: .long, time: .standard))
+                  .font(.headline)
+
+              Divider()
+
+              Text("Created: \(item.timestamp, format: .relative(presentation: .named))")
+                  .foregroundStyle(.secondary)
+            }
+          } else {
+            // 何も選択されていない時
+            VStack(spacing: 12) {
+                Image(systemName: "sidebar.left")
+                    .font(.system(size: 60))
+                    .foregroundStyle(.tertiary)
+                Text("Select an item")
+                    .font(.title2)
+                    .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+          }
         }
     }
 
@@ -49,6 +85,14 @@ struct ContentView: View {
             for index in offsets {
                 modelContext.delete(items[index])
             }
+        }
+    }
+
+    private func deleteSelectedItem() {
+        guard let item = selectedItem else { return }
+        withAnimation {
+            modelContext.delete(item)
+            selectedItem = nil
         }
     }
 }
