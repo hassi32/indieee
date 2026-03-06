@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4CD38D902F5B14AC0040C0A5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD38D8F2F5B14AC0040C0A5 /* SettingsView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		4C32FAFF2F592C270060B228 /* indieee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = indieee.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CD38D8F2F5B14AC0040C0A5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -34,6 +39,7 @@
 			children = (
 				4C32FB012F592C270060B228 /* indieee */,
 				4C32FB002F592C270060B228 /* Products */,
+				4CD38D8F2F5B14AC0040C0A5 /* SettingsView.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,6 +125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CD38D902F5B14AC0040C0A5 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

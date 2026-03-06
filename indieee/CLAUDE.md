@@ -409,20 +409,97 @@ Button("New Item") {
 - コンパイルエラーを解消
 - アプリの動作確認完了
 
-#### 🎯 今回のステップ: Step 5 - ウィンドウのカスタマイズ
-
-これから一緒に実装していきます!
+#### ✅ Step 5: ウィンドウのカスタマイズ (完了)
 
 **5-1. ウィンドウタイトルの設定**
-- `.navigationTitle()`でウィンドウにタイトルを表示
-- macOSらしいタイトルバーを設定
+- ContentView.swiftに`.navigationTitle("indieee")`を追加
+- ウィンドウタイトルが表示されるように
 
 **5-2. デフォルトウィンドウサイズの設定**
-- `.defaultSize()`でアプリ起動時のウィンドウサイズを指定
-- 横長のレイアウトに適したサイズを設定
+- indieeeApp.swiftに`.defaultSize(width: 800, height: 600)`を追加
+- アプリ起動時のウィンドウサイズを800x600に設定
 
-**5-3. 最小ウィンドウサイズの制限**
-- `.windowResizability()`で最小サイズを制限
-- UIが崩れないようにする
+**5-3. ウィンドウリサイズの制限**
+- `.windowResizability(.contentSize)`を追加
+- ウィンドウのリサイズ動作を制御
+
+#### ✅ Step 6: Settings画面の追加 (完了)
+
+**新規ファイル: SettingsView.swift**
+- TabViewで2つのタブを実装:
+  - General: 完了アイテム表示切替、デフォルト優先度、バージョン情報
+  - Appearance: アクセントカラー選択（5色）
+- `@AppStorage`で設定を永続化
+- Form + Sectionでマネらしいレイアウト
+**indieeeApp.swiftの変更:**
+- `Settings { SettingsView() }`を追加
+- Command + , で自動的にSettings画面が開くように
+
+#### 📚 学んだこと
+
+**macOS Settingsの実装:**
+- `Settings` Sceneを使うと自動的にCommand + ,で開ける
+- メニューバーに「Settings...」が自動追加される
+- TabViewでタブ切り替えUI
+
+**SwiftUIの便利機能:**
+- `@AppStorage`: UserDefaultsを簡単に扱える
+- `Form` + `Section`: macOSらしい設定画面レイアウト
+- `.formStyle(.grouped)`: グループ化されたフォームスタイル
+
+#### 💡 今回使ったSwiftUIコンポーネント
+
+```swift
+// Settings画面の追加
+Settings {
+    SettingsView()
+}
+
+// 永続化された設定値
+@AppStorage("accentColor") private var accentColor: String = "blue"
+
+// タブUI
+TabView {
+    generalView.tabItem { Label("General", systemImage: "gear") }
+    appearanceView.tabItem { Label("Appearance", systemImage: "paintbrush") }
+}
+
+// macOSらしいフォーム
+Form {
+    Section("Items") {
+        Toggle("Show completed items", isOn: $showCompletedItems)
+        Picker("Default priority:", selection: $defaultPriority) { ... }
+    }
+}
+.formStyle(.grouped)
+```
+
+#### 🎯 次のステップ候補
+
+**実践的な機能追加:**
+- アイテムにタイトル機能を追加
+- アイテムの編集機能
+- タグ・カテゴリ機能
+- 検索・フィルタリング機能
+
+**見た目の改善:**
+- カスタムアイコンの追加
+- アニメーション効果
+- カラーテーマの反映
+
+#### 🔗 Gitコミット履歴
+- 1st commit: macOS風の2カラムレイアウトを実装
+- 2nd commit: ウィンドウのカスタマイズとエラー修正
+- 3rd commit: Settings画面の追加（予定）
+
+---
+
+## 📝 学習メモ
+
+**コードは自分で書いて学ぶ方針:**
+- Claudeは手順とコード例を提示
+- 実装は自分で行う
+- 分からないところは質問しながら進める
+
 
 

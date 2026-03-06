@@ -46,6 +46,11 @@ struct indieeeApp: App {
                 .keyboardShortcut(.delete, modifiers: .command)
             }
         }
+        
+        // Settings画面
+        Settings {
+            SettingsView()
+        }
     }
 }
 // MARK: - Notification Names
