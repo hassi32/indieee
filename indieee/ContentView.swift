@@ -71,6 +71,14 @@ struct ContentView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
           }
         }
+        .navigationTitle("indieee")
+        // メニューバーからの通知を受け取る
+        .onReceive(NotificationCenter.default.publisher(for: .addNewItem)) { _ in
+            addItem()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .deleteSelectedItem)) { _ in
+            deleteSelectedItem()
+        }
     }
 
     private func addItem() {
@@ -101,3 +109,4 @@ struct ContentView: View {
     ContentView()
         .modelContainer(for: Item.self, inMemory: true)
 }
+
