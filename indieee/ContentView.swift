@@ -12,6 +12,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     @State private var selectedItem: Item?
+    @AppStorage("accentColor") private var accentColor: String = "blue"
 
     var body: some View {
         NavigationSplitView {
@@ -45,7 +46,7 @@ struct ContentView: View {
             VStack(spacing: 20) {
               Image(systemName: "clock.fill")
                   .font(.system(size: 60))
-                  .foregroundStyle(.blue)
+                  .foregroundStyle(Color.from(string: accentColor))
 
               Text("Selected Item")
                   .font(.title)
@@ -71,6 +72,7 @@ struct ContentView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
           }
         }
+        .tint(Color.from(string: accentColor))
         .navigationTitle("indieee")
         // メニューバーからの通知を受け取る
         .onReceive(NotificationCenter.default.publisher(for: .addNewItem)) { _ in
@@ -110,3 +112,22 @@ struct ContentView: View {
         .modelContainer(for: Item.self, inMemory: true)
 }
 
+// MARK: - Color Extension
+extension Color {
+    static func from(string: String) -> Color {
+        switch string {
+        case "blue":
+            return .blue
+        case "purple":
+            return .purple
+        case "pink":
+            return .pink
+        case "orange":
+            return .orange
+        case "green":
+            return .green
+        default:
+            return .blue
+        }
+    }
+}
