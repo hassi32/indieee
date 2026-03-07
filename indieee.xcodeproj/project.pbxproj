@@ -61,6 +61,7 @@
 				4C32FAFB2F592C270060B228 /* Sources */,
 				4C32FAFC2F592C270060B228 /* Frameworks */,
 				4C32FAFD2F592C270060B228 /* Resources */,
+				4C373D152F5BD63200B4E7F2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -119,6 +120,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4C373D152F5BD63200B4E7F2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# フォーマットしたいフォルダを指定\nTARGET_DIR=\"${SRCROOT}\"\nCONFIG=\"${SRCROOT}/.swift-format\"\n\n# Xcode内蔵のswift-formatを使用してフォーマットを実行\nif xcrun --find swift-format >/dev/null 2>&1; then\n  xcrun swift-format format --configuration \"$CONFIG\" --in-place --recursive \"$TARGET_DIR\"\nelse\n  echo \"warning: Xcodeにswift-formatが見つかりません。Xcode 16以降を使用してください。\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4C32FAFB2F592C270060B228 /* Sources */ = {
@@ -264,6 +285,7 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -296,6 +318,7 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
